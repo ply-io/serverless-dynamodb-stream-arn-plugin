@@ -11,7 +11,7 @@ class fetchDynamoDBStreamsPlugin {
 				async resolve({ address, params, resolveConfigurationProperty, __ }) {
 					let myStreamArn = null;
 					try {
-						if(!params || params.length < 1)
+						if (!params || params.length < 1)
 							throw new Error("No table name passed to fetchStreamARN Function");
 						const configuredRegion =
 							await resolveConfigurationProperty([
@@ -21,9 +21,9 @@ class fetchDynamoDBStreamsPlugin {
 						let region = "";
 						if (options && options.region) {
 							region = options.region;
-						} else if(configuredRegion){
+						} else if (configuredRegion) {
 							region = configuredRegion;
-						} else if(params.length > 1) {
+						} else if (params.length > 1) {
 							region = params[1];
 						}
 						const tableName = params[0];
@@ -67,8 +67,11 @@ const extractStreamARNFromStreamData = (data, tableName) => {
 			`Cannot Find Stream of [ Table : ${tableName} ], make sure the table exist and stream is enabled`
 		);
 	}
-	const streamArn = Streams[0].StreamArn;
-	return streamArn;
+	const maybeStream = Streams.find((stream) => stream.TableName === tableName);
+	if (!maybeStream?.StreamArn) {
+		throw new Error(`Cannot find stream with table named '${tableName}' among these streams:`, Streams);
+	}
+	return maybeStream.StreamArn;
 };
 
 const getDynamoDBStreams = async (region, tableName) => {
