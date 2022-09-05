@@ -1,5 +1,5 @@
 {
-  "name": "serverless-dynamodb-stream-arn-plugin",
+  "name": "@ply-io/serverless-dynamodb-stream-arn-plugin",
   "version": "0.0.4",
   "description": "Fetches and then adds existing DynamoDB Table streams to serverless.yml file using table name for serverless framework",
   "main": "index.js",
@@ -11,11 +11,11 @@
     "dynamo"
   ],
   "peerDependencies": {
-    "serverless": "^2.51.2"
+    "serverless": "^3.22.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepakandgupta/serverless-dynamodb-stream-arn-plugin.git"
+    "url": "git+https://github.com/ply-io/serverless-dynamodb-stream-arn-plugin.git"
   },
   "author": "strewizer",
   "license": "MIT"
